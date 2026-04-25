@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect, lazy, Suspense, createContext, useContext
 import { Routes, Route, useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import './App.css';
-import { PrivacyPolicy, TermsAndConditions } from './LegalPages.jsx';
+import { PrivacyPolicy, TermsAndConditions, AboutPage } from './LegalPages.jsx';
 import ContactPage from './ContactPage.jsx';
 
 const ITEMS_PER_PAGE = 12;
@@ -581,6 +581,7 @@ function SiteHeader() {
         <nav>
           <ul className="nav-links label-upper">
             <li><Link to="/">Recipes</Link></li>
+            <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
         </nav>
@@ -850,6 +851,7 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<><HeadManager title="Privacy Policy | VidaSazón" description="VidaSazón privacy policy. Learn how we collect, use, and protect your personal information. We are committed to data security and transparency." canonical="https://vidasazon.com/privacy" /><SiteHeader /><PrivacyPolicy /><SiteFooter /></>} />
         <Route path="/terms" element={<><HeadManager title="Terms &amp; Conditions | VidaSazón" description="VidaSazón terms and conditions. Read about our medical disclaimer, recipe data attribution, user conduct, and limitation of liability." canonical="https://vidasazon.com/terms" /><SiteHeader /><TermsAndConditions /><SiteFooter /></>} />
+        <Route path="/about" element={<><HeadManager title="About VidaSazón | Academic Recipe Platform" description="Learn about VidaSazón's 718 dietitian-approved diabetic-friendly recipes sourced from Durban University of Technology. Meet our team and mission." canonical="https://vidasazon.com/about" /><SiteHeader /><AboutPage /><SiteFooter /></>} />
       </Routes>
     </RecipesContext.Provider>
   );

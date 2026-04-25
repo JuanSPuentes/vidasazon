@@ -304,3 +304,120 @@ export function TermsAndConditions() {
     </LegalPage>
   );
 }
+
+/* ═══════════════════════════════════════════
+   About Page
+   ═══════════════════════════════════════════ */
+export function AboutPage() {
+  return (
+    <LegalPage title="About VidaSazón">
+      <section>
+        <h2>1. Our Mission</h2>
+        <p>
+          VidaSazón — "Life with Flavor" — is a recipe platform dedicated to proving that
+          managing type 2 diabetes does not mean sacrificing taste. We believe everyone
+          deserves to enjoy delicious, nutritious meals without compromise.
+        </p>
+        <p>
+          With 718 nutritionist-approved recipes, our platform brings together the science
+          of blood sugar management with the joy of cooking, empowering people with
+          type 2 diabetes to take control of their health through food.
+        </p>
+      </section>
+
+      <section>
+        <h2>2. The Recipe Dataset</h2>
+        <p>
+          All recipes featured on VidaSazón are sourced from the{' '}
+          <strong>DUT Diabetic Friendly Recipes dataset</strong>, developed by a team of
+          registered dietitians and nutritionists at Durban University of Technology,
+          South Africa.
+        </p>
+        <p>
+          Each recipe is designed around <strong>low glycemic index (GI) ingredients</strong>,
+          balanced macronutrients, and blood sugar-friendly cooking principles — without
+          sacrificing the flavors of traditional and international cuisine.
+        </p>
+      </section>
+
+      <section>
+        <h2>3. Our Team</h2>
+        <p>
+          The DUT Diabetic Friendly Recipes dataset was created by the following researchers
+          at Durban University of Technology, Faculty of Applied Sciences, Department
+          of Food and Nutrition:
+        </p>
+        <ul>
+          <li><strong>Prof. Ashika Naicker</strong> — Lead Dietitian & Researcher</li>
+          <li><strong>Mr. Shaylin Chetty</strong> — Research Dietitian</li>
+          <li><strong>Ms. Riashnie Thaver</strong> — Dietitian</li>
+          <li><strong>Ms. Anjellah Reddy</strong> — Dietitian</li>
+          <li><strong>Dr. Evonne Shanita Singh</strong> — Senior Research Dietitian</li>
+          <li><strong>Dr. Imana Pal</strong> — Research Dietitian</li>
+          <li><strong>Dr. Lisebo Mothepu</strong> — Dietitian</li>
+        </ul>
+        <p>
+          The dataset is licensed under{' '}
+          <a href="https://opensource.org/licenses/AFL-3.0" target="_blank" rel="noopener noreferrer">
+            Academic Free License v3.0 (AFL-3.0)
+          </a>
+          {' '}and available on{' '}
+          <a href="https://huggingface.co/datasets/Ashikan/diabetic-friendly-recipes" target="_blank" rel="noopener noreferrer">
+            Hugging Face
+          </a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>4. Our Recipe Categories</h2>
+        <p>
+          Browse 718 recipes across 9 categories, all designed for people managing
+          type 2 diabetes:
+        </p>
+        <ul>
+          <li><strong>Main Dishes</strong> — Complete meals, entrees, and protein-rich dishes</li>
+          <li><strong>Desserts</strong> — Diabetic-friendly sweets using low GI sweeteners</li>
+          <li><strong>Breakfast</strong> — Morning meals optimized for blood sugar management</li>
+          <li><strong>Soups & Stews</strong> — Warm, comforting liquid-based dishes</li>
+          <li><strong>Salads</strong> — Fresh vegetable-based dishes with light dressings</li>
+          <li><strong>Sides</strong> — Accompaniments to complement your meals</li>
+          <li><strong>Snacks & Breads</strong> — Quick bites and baked goods</li>
+          <li><strong>Beverages</strong> — Healthy drinks and smoothies</li>
+          <li><strong>Sauces & Dressings</strong> — Flavor enhancers for every dish</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>5. Medical Disclaimer</h2>
+        <div className="legal-warning">
+          <p>
+            <strong>⚠️ Important:</strong> VidaSazón recipes are for informational and
+            educational purposes only. They are NOT a substitute for professional
+            medical advice, diagnosis, or treatment.
+          </p>
+          <p>
+            Always consult your physician, registered dietitian, or qualified healthcare
+            provider before making dietary changes, especially if you have diabetes or
+            other medical conditions. Individual nutritional needs vary. Do not disregard
+            professional medical advice.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2>6. Connect With Us</h2>
+        <p>Follow VidaSazón on social media:</p>
+        <ul>
+          <li><a href="https://www.facebook.com/vidasazon" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="https://www.instagram.com/vidasazon" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://www.pinterest.com/vidasazon" target="_blank" rel="noopener noreferrer">Pinterest</a></li>
+          <li><a href="https://www.youtube.com/@vidasazon" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+        <p>
+          Have a question or recipe to share?{' '}
+          <Link to="/contact">Get in touch</Link>
+        </p>
+      </section>
+    </LegalPage>
+  );
+}
