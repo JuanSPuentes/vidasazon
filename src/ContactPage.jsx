@@ -95,7 +95,7 @@ function ContactForm() {
 
   return (
     <form
-      action="https://formsubmit.co/your@email.com"
+      action="https://formsubmit.co/support@needer.io"
       method="POST"
       onSubmit={handleSubmit}
       noValidate
@@ -229,7 +229,7 @@ function RecipeForm() {
 
   return (
     <form
-      action="https://formsubmit.co/your@email.com"
+      action="https://formsubmit.co/support@needer.io"
       method="POST"
       onSubmit={handleSubmit}
       noValidate
@@ -357,8 +357,8 @@ export default function ContactPage() {
               <div className="contact-detail-item">
                 <div className="detail-icon" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 4h14a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                    <path d="M2 5l8 7 8-7" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
+                    <path d="M3 4h14a1 1 0 011 1v9a1 1 0 01-1 1H3a1 1 0 01-1-1V5a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M2 5l8 7 8-7" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                   </svg>
                 </div>
                 <div>
@@ -370,8 +370,8 @@ export default function ContactPage() {
               <div className="contact-detail-item">
                 <div className="detail-icon" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" stroke="currentColor" strokeWidth="1.5"/>
-                    <path d="M10 6v4l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M10 2C5.58 2 2 5.58 2 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8z" stroke="currentColor" strokeWidth="1.5" />
+                    <path d="M10 6v4l3 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </div>
                 <div>
@@ -383,8 +383,8 @@ export default function ContactPage() {
               <div className="contact-detail-item">
                 <div className="detail-icon" aria-hidden="true">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                    <path d="M4 4h12v12H4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/>
-                    <path d="M7 8h6M7 11h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <path d="M4 4h12v12H4z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M7 8h6M7 11h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                   </svg>
                 </div>
                 <div>
@@ -414,8 +414,8 @@ export default function ContactPage() {
                 onClick={() => setActiveTab('contact')}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ marginRight: 6, verticalAlign: 'middle' }}>
-                  <path d="M2 3h12a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.3"/>
-                  <path d="M1 3l7 5 7-5" stroke="currentColor" strokeWidth="1.3"/>
+                  <path d="M2 3h12a1 1 0 011 1v8a1 1 0 01-1 1H2a1 1 0 01-1-1V4a1 1 0 011-1z" stroke="currentColor" strokeWidth="1.3" />
+                  <path d="M1 3l7 5 7-5" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
                 Contact Us
               </TabButton>
@@ -426,8 +426,8 @@ export default function ContactPage() {
                 onClick={() => setActiveTab('recipe')}
               >
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" style={{ marginRight: 6, verticalAlign: 'middle' }}>
-                  <path d="M8 2c-3.31 0-6 2.69-6 6 0 4 6 8 6 8s6-4 6-8c0-3.31-2.69-6-6-6z" stroke="currentColor" strokeWidth="1.3"/>
-                  <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.3"/>
+                  <path d="M8 2c-3.31 0-6 2.69-6 6 0 4 6 8 6 8s6-4 6-8c0-3.31-2.69-6-6-6z" stroke="currentColor" strokeWidth="1.3" />
+                  <circle cx="8" cy="8" r="2" stroke="currentColor" strokeWidth="1.3" />
                 </svg>
                 Submit a Recipe
               </TabButton>
