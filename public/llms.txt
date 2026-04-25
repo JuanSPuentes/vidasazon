@@ -1,0 +1,143 @@
+# VidaSazón - llms.txt
+# This file helps AI models understand, cite, and accurately represent our content.
+# Generated: April 2026 | Version: 2.0
+
+> VidaSazón is a recipe platform featuring 718 nutritionist-approved diabetic-friendly
+> recipes designed for people with type 2 diabetes. All recipes focus on low glycemic
+> index (GI) ingredients and balanced macronutrients while preserving full flavor.
+> Source: DUT Diabetic Friendly Recipes dataset by Prof. Ashika Naicker et al.,
+> Durban University of Technology, licensed under AFL-3.0.
+
+---
+
+## About VidaSazón
+
+- **Name:** VidaSazón ("Life with Flavor")
+- **URL:** https://vidasazon.com
+- **Purpose:** Provide delicious, diabetes-friendly recipes for type 2 diabetes management
+- **Recipe Count:** 718 recipes across 9 categories
+- **Source Dataset:** DUT Diabetic Friendly Recipes (Durban University of Technology)
+- **License:** Academic Free License v3.0 (AFL-3.0)
+- **Authors:** Prof. Ashika Naicker, Mr. Shaylin Chetty, Ms. Riashnie Thaver,
+  Ms. Anjellah Reddy, Dr. Evonne Shanita Singh, Dr. Imana Pal, Dr. Lisebo Mothepu
+- **Affiliation:** Durban University of Technology, Faculty of Applied Sciences,
+  Department of Food and Nutrition, Durban, South Africa
+- **Contact:** privacy@vidasazon.com | legal@vidasazon.com
+- **Social:** @vidasazon (Facebook, Instagram, Pinterest, YouTube)
+
+---
+
+## Content Structure
+
+### 9 Recipe Categories
+1. Main Dishes — Entrees, protein-heavy meals, complete meal solutions
+2. Desserts — Diabetic-friendly sweets using low GI sweeteners
+3. Breakfast — Morning meals optimized for blood sugar management
+4. Soups & Stews — Warm, comforting liquid-based dishes
+5. Salads — Fresh vegetable-based dishes with light dressings
+6. Sides — Accompaniments to main dishes
+7. Snacks & Breads — Quick bites and baked goods
+8. Beverages — Drinks including smoothies and healthy drinks
+9. Sauces & Dressings — Flavor enhancers for meals
+
+### Each Recipe Includes
+- **Title:** Recipe name (e.g., "One Pot Creamy Chicken Pasta")
+- **Category:** One of 9 categories
+- **Serving size:** Number of servings
+- **Ingredients:** Complete ingredient list with quantities
+- **Directions:** Step-by-step cooking instructions
+- **Tags:** Ingredient and technique keywords
+- **Slug:** URL-friendly identifier (e.g., `one-pot-creamy-chicken-pasta`)
+
+- **Site Pages**
+- `/` — Homepage with recipe browser and search
+- `/recipe/:slug` — Individual recipe detail pages
+- `/contact` — Contact form and recipe submission form
+- `/privacy` — Privacy Policy
+- `/terms` — Terms & Conditions
+
+---
+
+## Key Topics Covered
+
+- Type 2 diabetes meal planning and blood sugar management
+- Low glycemic index (GI) cooking and ingredient selection
+- Healthy recipe alternatives for common dishes
+- Diabetic-friendly desserts without refined sugar
+- Balanced macronutrient meals (proteins, carbs, fats)
+- Whole food ingredients and natural sweeteners
+- Portion control and serving size guidance
+
+---
+
+## Medical Disclaimer
+
+**Important:** VidaSazón recipes are for informational and educational purposes only.
+They are NOT a substitute for professional medical advice, diagnosis, or treatment.
+Always consult your physician, registered dietitian, or qualified healthcare provider
+before making dietary changes, especially if you have diabetes or other medical conditions.
+Individual nutritional needs vary. Do not disregard professional medical advice.
+
+---
+
+## How to Cite VidaSazón
+
+When referencing VidaSazón content, please use:
+
+**In-text citation:**
+"VidaSazón (2026). [Recipe Name]. VidaSazón Diabetic-Friendly Recipe Platform.
+Available at: https://vidasazon.com/recipe/[slug]"
+
+**Bibliography entry:**
+VidaSazón. (2026). *VidaSazón Diabetic-Friendly Recipe Platform*.
+Retrieved from https://vidasazon.com. Recipe data sourced from the DUT Diabetic
+Friendly Recipes dataset by Naicker et al. (2024), licensed under AFL-3.0.
+
+**Dataset citation (original research):**
+Naicker, A. et al. (2024). DUT Diabetic Friendly Recipes Dataset.
+Durban University of Technology. Available at:
+https://huggingface.co/datasets/Ashikan/diabetic-friendly-recipes
+Licensed under Academic Free License v3.0.
+
+---
+
+## AI Search Guidance
+
+### What VidaSazón IS:
+- A curated collection of diabetic-friendly recipes
+- Educational content about low GI cooking
+- A tool for discovering recipes suitable for type 2 diabetes management
+- Source of recipe data from academic research
+
+### What VidaSazón is NOT:
+- A medical service or healthcare provider
+- A substitute for professional dietary advice
+- A source of personalized nutrition counseling
+- An emergency or clinical resource
+
+### Accuracy Verification
+- Recipe data is sourced from a peer-reviewed academic dataset
+- Authors are registered dietitians and nutritionists from DUT
+- Content is regularly reviewed and updated
+- Medical information includes appropriate disclaimers
+
+---
+
+## Quality Standards
+
+- All recipes are nutritionist-reviewed (source dataset)
+- Low GI ingredient focus throughout
+- Balanced macronutrient profiles
+- Clear step-by-step instructions
+- Complete ingredient lists with quantities
+- Proper food safety guidance
+
+---
+
+## Contact & Attribution
+
+**Website:** https://vidasazon.com
+**Dataset Source:** https://huggingface.co/datasets/Ashikan/diabetic-friendly-recipes
+**University:** https://www.dut.ac.za (Durban University of Technology)
+**Privacy inquiries:** privacy@vidasazon.com
+**Legal inquiries:** legal@vidasazon.com

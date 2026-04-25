@@ -1,0 +1,49 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# === Python & Data Scripts ===
+*.py
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+.venv
+*.env
+
+# === Data Files & Raw Databases ===
+*.parquet
+test_*.json
+test_*.py
+src/data_recipes.json
+recipes_sample.json
+
+# === Internal Docs & AI Artifacts ===
+.agents/
+.gemini/
+ACTION-PLAN.md
+FULL-AUDIT-REPORT.md
