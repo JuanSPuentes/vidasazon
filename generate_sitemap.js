@@ -43,6 +43,7 @@ xml += `        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n
 // 1. Static Routes
 const staticRoutes = [
     { loc: `${DOMAIN}/`, changefreq: 'daily', priority: '1.0' },
+    { loc: `${DOMAIN}/about`, changefreq: 'monthly', priority: '0.7' },
     { loc: `${DOMAIN}/contact`, changefreq: 'monthly', priority: '0.6' },
     { loc: `${DOMAIN}/privacy`, changefreq: 'yearly', priority: '0.3' },
     { loc: `${DOMAIN}/terms`, changefreq: 'yearly', priority: '0.3' }
