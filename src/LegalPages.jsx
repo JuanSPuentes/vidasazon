@@ -326,36 +326,24 @@ export function AboutPage() {
       </section>
 
       <section>
-        <h2>2. The Recipe Dataset</h2>
+        <h2>2. Recipe Dataset &amp; Attribution</h2>
         <p>
           All recipes featured on VidaSazón are sourced from the{' '}
-          <strong>DUT Diabetic Friendly Recipes dataset</strong>, developed by a team of
-          registered dietitians and nutritionists at Durban University of Technology,
-          South Africa.
+          <strong>DUT Diabetic Friendly Recipes dataset</strong>, developed by researchers
+          at Durban University of Technology, South Africa.
         </p>
         <p>
           Each recipe is designed around <strong>low glycemic index (GI) ingredients</strong>,
-          balanced macronutrients, and blood sugar-friendly cooking principles — without
-          sacrificing the flavors of traditional and international cuisine.
+          balanced macronutrients, and blood sugar-friendly cooking principles.
         </p>
-      </section>
-
-      <section>
-        <h2>3. Our Team</h2>
         <p>
-          The DUT Diabetic Friendly Recipes dataset was created by the following researchers
-          at Durban University of Technology, Faculty of Applied Sciences, Department
-          of Food and Nutrition:
+          The dataset was created by:{' '}
+          <strong>Prof. Ashika Naicker</strong>, <strong>Mr. Shaylin Chetty</strong>,{' '}
+          <strong>Ms. Riashnie Thaver</strong>, <strong>Ms. Anjellah Reddy</strong>,{' '}
+          <strong>Dr. Evonne Shanita Singh</strong>, <strong>Dr. Imana Pal</strong>,{' '}
+          <strong>Dr. Lisebo Mothepu</strong> — Durban University of Technology, Faculty of
+          Applied Sciences, Department of Food and Nutrition, Durban, South Africa.
         </p>
-        <ul>
-          <li><strong>Prof. Ashika Naicker</strong> — Lead Dietitian & Researcher</li>
-          <li><strong>Mr. Shaylin Chetty</strong> — Research Dietitian</li>
-          <li><strong>Ms. Riashnie Thaver</strong> — Dietitian</li>
-          <li><strong>Ms. Anjellah Reddy</strong> — Dietitian</li>
-          <li><strong>Dr. Evonne Shanita Singh</strong> — Senior Research Dietitian</li>
-          <li><strong>Dr. Imana Pal</strong> — Research Dietitian</li>
-          <li><strong>Dr. Lisebo Mothepu</strong> — Dietitian</li>
-        </ul>
         <p>
           The dataset is licensed under{' '}
           <a href="https://opensource.org/licenses/AFL-3.0" target="_blank" rel="noopener noreferrer">
@@ -369,7 +357,7 @@ export function AboutPage() {
       </section>
 
       <section>
-        <h2>4. Our Recipe Categories</h2>
+        <h2>3. Recipe Categories</h2>
         <p>
           Browse 718 recipes across 9 categories, all designed for people managing
           type 2 diabetes:
@@ -388,7 +376,7 @@ export function AboutPage() {
       </section>
 
       <section>
-        <h2>5. Medical Disclaimer</h2>
+        <h2>4. Medical Disclaimer</h2>
         <div className="legal-warning">
           <p>
             <strong>⚠️ Important:</strong> VidaSazón recipes are for informational and
@@ -405,16 +393,9 @@ export function AboutPage() {
       </section>
 
       <section>
-        <h2>6. Connect With Us</h2>
-        <p>Follow VidaSazón on social media:</p>
-        <ul>
-          <li><a href="https://www.facebook.com/vidasazon" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="https://www.instagram.com/vidasazon" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="https://www.pinterest.com/vidasazon" target="_blank" rel="noopener noreferrer">Pinterest</a></li>
-          <li><a href="https://www.youtube.com/@vidasazon" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-        </ul>
+        <h2>5. Contact</h2>
         <p>
-          Have a question or recipe to share?{' '}
+          Have a question or want to share feedback?{' '}
           <Link to="/contact">Get in touch</Link>
         </p>
       </section>

@@ -600,7 +600,7 @@ function SiteFooter() {
           <p className="footer-text">An initiative dedicated to preserving Latin flavor in the face of the type 2 diabetes challenge.</p>
           <p className="footer-attribution">
             Recipe data sourced from <a href="https://huggingface.co/datasets/Ashikan/diabetic-friendly-recipes" target="_blank" rel="noopener noreferrer">DUT Diabetic Friendly Recipes</a>
-            <br/>© Prof. Ashika Naicker et al., Durban University of Technology
+            <br/>Developed by Prof. Ashika Naicker et al., Durban University of Technology
             <br/>Licensed under <a href="https://opensource.org/licenses/AFL-3.0" target="_blank" rel="noopener noreferrer">AFL-3.0</a>
           </p>
         </div>
