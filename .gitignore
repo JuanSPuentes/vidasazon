@@ -39,7 +39,6 @@ env/
 *.parquet
 test_*.json
 test_*.py
-src/data_recipes.json
 recipes_sample.json
 
 # === Internal Docs & AI Artifacts ===
