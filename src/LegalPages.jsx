@@ -203,7 +203,7 @@ export function TermsAndConditions() {
         <h2>4. Recipe Data Attribution</h2>
         <p>
           The recipe data featured on VidaSazón is sourced from the{' '}
-          <strong>DUT Diabetic Friendly Recipes dataset</strong>, created by:
+          <strong>DUT Diabetic Friendly Recipes dataset</strong>, developed by:
         </p>
         <blockquote>
           Prof. Ashika Naicker, Mr. Shaylin Chetty, Ms. Riashnie Thaver, Ms. Anjellah Reddy,
@@ -337,7 +337,7 @@ export function AboutPage() {
           balanced macronutrients, and blood sugar-friendly cooking principles.
         </p>
         <p>
-          The dataset was created by:{' '}
+          The dataset was developed by:{' '}
           <strong>Prof. Ashika Naicker</strong>, <strong>Mr. Shaylin Chetty</strong>,{' '}
           <strong>Ms. Riashnie Thaver</strong>, <strong>Ms. Anjellah Reddy</strong>,{' '}
           <strong>Dr. Evonne Shanita Singh</strong>, <strong>Dr. Imana Pal</strong>,{' '}
