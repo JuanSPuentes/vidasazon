@@ -125,7 +125,13 @@ function HeadManager({ title, description, canonical, image }) {
     if (twTitle) twTitle.content = title;
 
     if (canonical) {
-      if (canonicalEl) canonicalEl.href = canonical;
+      let canonicalEl = document.querySelector('link[rel="canonical"]');
+      if (!canonicalEl) {
+        canonicalEl = document.createElement('link');
+        canonicalEl.rel = 'canonical';
+        document.head.appendChild(canonicalEl);
+      }
+      canonicalEl.href = canonical;
       if (ogUrl) ogUrl.content = canonical;
     }
 
@@ -134,6 +140,10 @@ function HeadManager({ title, description, canonical, image }) {
       if (ogDesc) ogDesc.content = trimmed;
       if (ogDescProp) ogDescProp.content = trimmed;
       if (twDesc) twDesc.content = trimmed;
+      
+      // Also update standard meta description if it exists
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.content = trimmed;
     }
 
     if (image) {
