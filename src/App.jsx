@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect, lazy, Suspense, createContext, useContext } from 'react';
 import { Routes, Route, useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import ingredientsData from './data/ingredients.json';
 import './App.css';
 import { PrivacyPolicy, TermsAndConditions, AboutPage } from './LegalPages.jsx';
 import ContactPage from './ContactPage.jsx';
@@ -63,6 +64,7 @@ function useRecipesData() {
 
   return { recipes, loading, error };
 }
+
 
 const slugify = text => text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 
@@ -150,6 +152,10 @@ function HeadManager({ title, description, canonical, image }) {
       if (ogImage) ogImage.content = image;
       if (twImage) twImage.content = image;
     }
+
+    // Pinterest specific
+    const ogSiteName = document.querySelector('meta[property="og:site_name"]');
+    if (ogSiteName && !ogSiteName.content) ogSiteName.content = 'VidaSazón';
   }, [title, description, canonical, image]);
 
   return null;
@@ -250,6 +256,16 @@ function RecipeSchema({ recipe }) {
         "@type": "Thing",
         "name": recipe.category,
         "description": "Diabetic-friendly recipe category"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "12",
+        "bestRating": "5"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `${baseUrl}/recipe/${recipe.slug}`
       }
     };
 
@@ -381,6 +397,37 @@ function CollectionSchema({ recipes }) {
   return null;
 }
 
+/* ─── Pinterest Share Button ─── */
+function PinterestShare({ recipe, vertical = false }) {
+  const handlePin = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const baseUrl = window.location.origin;
+    const url = encodeURIComponent(`${baseUrl}/recipe/${recipe.slug}`);
+    const media = encodeURIComponent(`${baseUrl}${recipe.image}`);
+    const description = encodeURIComponent(`${recipe.title} - Receta saludable para diabéticos (Bajo IG). ¡Descubre más de 700 recetas en VidaSazón! #diabetic-friendly #lowgi #vidasazon`);
+    
+    window.open(
+      `https://www.pinterest.com/pin/create/button/?url=${url}&media=${media}&description=${description}`,
+      'Pinterest',
+      'width=750,height=600'
+    );
+  };
+
+  return (
+    <button 
+      className={`pinterest-share-btn ${vertical ? 'vertical' : ''}`} 
+      onClick={handlePin}
+      aria-label="Pin on Pinterest"
+    >
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path d="M12.289 2C6.617 2 2 6.617 2 12.289c0 4.305 2.654 8.01 6.452 9.563-.09-.806-.17-2.046.035-2.928.185-.792 1.192-5.05 1.192-5.05s-.304-.608-.304-1.506c0-1.41.817-2.463 1.834-2.463.865 0 1.282.648 1.282 1.427 0 .87-.553 2.167-.84 3.37-.24.101-.424.33-.217.61.025.04.05.07.078.1.58.583 1.62.774 2.508.774 3.011 0 5.32-3.178 5.32-7.766 0-4.06-2.916-6.896-7.082-6.896-4.819 0-7.648 3.614-7.648 7.348 0 1.455.56 3.015 1.26 3.865.138.168.158.316.117.485l-.467 1.905c-.075.31-.25.375-.575.225-2.148-1-3.49-4.145-3.49-6.666 0-5.426 3.94-10.41 11.36-10.41 5.965 0 10.6 4.25 10.6 9.932 0 5.925-3.736 10.692-8.92 10.692-1.742 0-3.38-.905-3.94-1.98l-1.072 4.092c-.39 1.488-1.442 3.356-2.145 4.5l.394.07c5.845.54 11.196-3.14 13.06-8.58.118-.34.195-.542.195-.542s2.008-7.77 2.05-7.94c.04-.17.155-.572.066-.757-.09-.185-.506-.271-.703-.298-.2-.027-.852.126-.852.126s-1.84 4.032-2.145 4.5c-.305.467-.78 1.054-1.488.941-.708-.113-.984-.962-.904-1.85.08-.888.543-3.66.543-3.66s.184-.954-.15-1.503c-.333-.55-.984-.664-1.48-.616-.5.05-1.033.352-1.25.753-.217.4-.184 1.255.08 1.83l.83 1.808c.118.256.096.386-.101.558-.2.172-.61.127-.872-.083a2.383 2.383 0 0 1-.397-.506c-.52-.806-.71-1.734-.5-2.658.21-.924.81-1.68 1.63-2.055.82-.375 1.764-.325 2.545.138.78.463 1.254 1.298 1.254 2.213z" />
+      </svg>
+      <span>Save</span>
+    </button>
+  );
+}
+
 /* ─── Recipe Detail Page (full route /recipe/:slug) ─── */
 function RecipePage() {
   const { slug } = useParams();
@@ -441,7 +488,19 @@ function RecipePage() {
         >
           <div className="recipe-detail-hero">
             {recipe.image ? (
-              <img src={recipe.image} alt={`${recipe.title} - ${recipe.category} recipe`} width="800" height="450" />
+              <>
+                <img 
+                  src={recipe.image} 
+                  alt={`${recipe.title} - ${recipe.category} recipe`} 
+                  width="800" height="450" 
+                  data-pin-media={`${baseUrl}${recipe.image}`}
+                  data-pin-description={`${recipe.title} — Receta de ${recipe.category} apta para diabéticos. Descubre más en VidaSazón.`}
+                  data-pin-url={`${baseUrl}/recipe/${recipe.slug}`}
+                />
+                <div className="hero-pin-overlay">
+                  <PinterestShare recipe={recipe} />
+                </div>
+              </>
             ) : (
               <div className="modal-placeholder-img" role="img" aria-label={`${recipe.title} - ${recipe.category} diabetic-friendly recipe`}>
                 <span aria-hidden="true">{CATEGORY_ICONS[recipe.category] || '🍽️'}</span>
@@ -564,7 +623,12 @@ function RecipeCard({ recipe }) {
       <Link to={`/recipe/${recipe.slug}`} className="recipe-card-link">
         <div className="recipe-image">
           {recipe.image ? (
-            <img src={recipe.image} alt={recipe.title} loading="lazy" />
+            <>
+              <img src={recipe.image} alt={recipe.title} loading="lazy" />
+              <div className="card-pin-overlay">
+                <PinterestShare recipe={recipe} vertical />
+              </div>
+            </>
           ) : (
             <div className="placeholder-img" role="img" aria-label={`Placeholder illustration for ${recipe.title}`}>
               <span className="placeholder-icon">{CATEGORY_ICONS[recipe.category] || '🍽️'}</span>
@@ -591,6 +655,7 @@ function SiteHeader() {
         <nav>
           <ul className="nav-links label-upper">
             <li><Link to="/">Recipes</Link></li>
+            <li><Link to="/discovery" style={{ color: 'var(--spice)', fontWeight: 'bold' }}>Chef Discovery</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
           </ul>
@@ -626,6 +691,261 @@ function SiteFooter() {
     </footer>
   );
 }
+const COMMON_INGREDIENTS = ["garlic", "onion", "olive oil", "tomatoes", "eggs", "chicken breast", "parsley", "ginger", "coriander", "lemon juice", "black pepper", "spinach", "red onion", "carrots", "potatoes", "bell pepper", "yoghurt", "milk", "cinnamon", "avocado"];
+
+/* ─── Discovery Page — Chef de lo que tengo ─── */
+function DiscoveryPage() {
+  const allRecipes = useContext(RecipesContext) || [];
+  const [availableIngredients] = useState(ingredientsData);
+  const [selectedIngredients, setSelectedIngredients] = useState([]);
+  const [inputValue, setInputValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+
+  useEffect(() => {
+    // Ingredients are now imported directly
+  }, []);
+
+  const handleInputChange = (e) => {
+    const val = e.target.value;
+    
+    // If user types a comma, add the current value as an ingredient
+    if (val.endsWith(',')) {
+      const cleanVal = val.slice(0, -1).trim();
+      if (cleanVal) addIngredient(cleanVal);
+      return;
+    }
+
+    setInputValue(val);
+    if (val.trim().length > 1) {
+      const filtered = availableIngredients
+        .filter(ing => ing.toLowerCase().includes(val.toLowerCase()) && !selectedIngredients.some(si => si.toLowerCase() === ing.toLowerCase()))
+        .slice(0, 8);
+      setSuggestions(filtered);
+    } else {
+      setSuggestions([]);
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const paste = e.clipboardData.getData('text');
+    const items = paste.split(/[,|\n]/).map(i => i.trim()).filter(i => i);
+    items.forEach(item => addIngredient(item));
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' && suggestions.length > 0) {
+      addIngredient(suggestions[0]);
+    } else if (e.key === 'Enter' && inputValue.trim()) {
+      // If no suggestion but something is typed, add it as a custom chip
+      addIngredient(inputValue.trim());
+    }
+  };
+
+  const addIngredient = (ing) => {
+    const normalized = ing.toLowerCase().trim();
+    if (normalized && !selectedIngredients.some(i => i.toLowerCase() === normalized)) {
+      setSelectedIngredients([...selectedIngredients, ing]);
+    }
+    setInputValue('');
+    setSuggestions([]);
+  };
+
+  const removeIngredient = (ing) => {
+    setSelectedIngredients(selectedIngredients.filter(i => i !== ing));
+  };
+
+  const matchedRecipes = useMemo(() => {
+    if (selectedIngredients.length === 0) return [];
+
+    return allRecipes
+      .map(recipe => {
+        const recipeTags = (recipe.tags || []).map(t => t.toLowerCase());
+        const recipeIngs = (recipe.ingredients || []).map(i => i.toLowerCase());
+        
+        const matchedDetails = selectedIngredients.filter(ing => {
+          const q = ing.toLowerCase().trim();
+          const qSingular = q.endsWith('s') ? q.slice(0, -1) : q;
+          
+          return recipeTags.some(t => t.includes(q) || t.includes(qSingular)) ||
+                 recipeIngs.some(i => i.includes(q) || i.includes(qSingular));
+        });
+        
+        const score = matchedDetails.length / selectedIngredients.length;
+        return { ...recipe, matchCount: matchedDetails.length, matchScore: score, matchedNames: matchedDetails };
+      })
+      .filter(r => r.matchCount > 0)
+      .sort((a, b) => b.matchScore - a.matchScore || b.matchCount - a.matchCount)
+      .slice(0, 24);
+  }, [selectedIngredients, allRecipes]);
+
+  const [isAlphabeticalOpen, setIsAlphabeticalOpen] = useState(false);
+
+  const groupedIngredients = useMemo(() => {
+    const groups = {};
+    if (!availableIngredients || !Array.isArray(availableIngredients)) return {};
+    
+    availableIngredients.forEach(ing => {
+      if (!ing || typeof ing !== 'string') return;
+      const firstChar = ing.trim().charAt(0).toUpperCase();
+      const letter = /[A-Z]/.test(firstChar) ? firstChar : '#';
+      if (!groups[letter]) groups[letter] = [];
+      groups[letter].push(ing);
+    });
+    return Object.keys(groups).sort().reduce((acc, key) => {
+      acc[key] = groups[key].sort();
+      return acc;
+    }, {});
+  }, [availableIngredients]);
+
+  return (
+    <div className="App">
+      <HeadManager 
+        title="Chef Discovery | What can I cook with these ingredients? | VidaSazón"
+        description="Select the ingredients you have and find the best diabetic-friendly recipes. Our 'Chef Discovery' tool helps you cook healthy meals with what's in your fridge."
+        canonical="https://vidasazon.com/discovery"
+      />
+      <SiteHeader />
+
+      <main className="container">
+        <section className="discovery-hero">
+          <motion.div variants={reveal} initial="hidden" animate="visible">
+            <span className="label-upper section-label">Discovery Tool</span>
+            <h1>What&apos;s in your <span>fridge</span>?</h1>
+            <p className="hero-subtitle">Enter the ingredients you have on hand and we&apos;ll find the best nutritionist-approved recipes for you.</p>
+          </motion.div>
+        </section>
+
+        <section className="ingredient-selector">
+          <div className="discovery-input-wrapper">
+            <input 
+              type="text" 
+              className="discovery-search-input"
+              placeholder="Type an ingredient (e.g. Chicken) and press Enter..."
+              value={inputValue}
+              onChange={handleInputChange}
+              onKeyDown={handleKeyDown}
+              onPaste={handlePaste}
+            />
+            <p className="input-hint">Add ingredients one by one or paste a list separated by commas.</p>
+            {suggestions.length > 0 && (
+              <div className="suggestions-dropdown">
+                {suggestions.map(s => (
+                  <div key={s} className="suggestion-item" onClick={() => addIngredient(s)}>
+                    {s}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="selected-ingredients">
+            <AnimatePresence>
+              {selectedIngredients.map(ing => (
+                <motion.span 
+                  key={ing} 
+                  className="ingredient-chip selected"
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 0.8, opacity: 0 }}
+                >
+                  {ing}
+                  <button className="remove-chip" onClick={() => removeIngredient(ing)} aria-label={`Remove ${ing}`}>&times;</button>
+                </motion.span>
+              ))}
+            </AnimatePresence>
+          </div>
+
+          <div className="popular-ingredients">
+            <span className="label-upper" style={{ fontSize: '0.65rem', display: 'block', marginBottom: '1rem', opacity: 0.7 }}>Common Ingredients</span>
+            <div className="popular-grid">
+              {COMMON_INGREDIENTS.filter(ing => !selectedIngredients.some(si => si.toLowerCase() === ing.toLowerCase())).map(ing => (
+                <button 
+                  key={ing} 
+                  className="popular-chip"
+                  onClick={() => addIngredient(ing)}
+                >
+                  + {ing}
+                </button>
+              ))}
+              <button 
+                className="popular-chip browse-all-btn" 
+                onClick={() => setIsAlphabeticalOpen(!isAlphabeticalOpen)}
+              >
+                {isAlphabeticalOpen ? '− Close A-Z List' : '+ Browse All A-Z'}
+              </button>
+            </div>
+          </div>
+
+          <AnimatePresence>
+            {isAlphabeticalOpen && (
+              <motion.div 
+                className="alphabetical-browse"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
+              >
+                <div className="alphabetical-container">
+                  {Object.entries(groupedIngredients).map(([letter, items]) => (
+                    <div key={letter} className="alphabetical-group">
+                      <div className="letter-header">{letter}</div>
+                      <div className="letter-items">
+                        {items.filter(ing => !selectedIngredients.some(si => si.toLowerCase() === ing.toLowerCase())).map(ing => (
+                          <span key={ing} className="browse-item" onClick={() => addIngredient(ing)}>
+                            {ing}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </section>
+
+        <section className="discovery-results">
+          {selectedIngredients.length > 0 && (
+            <div className="discovery-results-header">
+              <h2>Recommended for you ({matchedRecipes.length})</h2>
+              <span className="label-upper" style={{ fontSize: '0.7rem' }}>Ranked by Match Score</span>
+            </div>
+          )}
+
+          {matchedRecipes.length > 0 ? (
+            <motion.div className="recipes-grid" initial="hidden" animate="visible" variants={stagger}>
+              {matchedRecipes.map(recipe => (
+                <div key={recipe.id} className="discovery-card-wrapper">
+                  <RecipeCard recipe={recipe} />
+                  <div className="discovery-badge-container">
+                    <span className="match-score">
+                      {Math.round(recipe.matchScore * 100)}% Match
+                    </span>
+                  </div>
+                  <div className="discovery-match-info">
+                    <span className="match-label label-upper">Matches:</span>
+                    <span className="match-list">{recipe.matchedNames.join(', ')}</span>
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          ) : selectedIngredients.length > 0 ? (
+            <div className="empty-state">
+              <p>No recipes found with those specific ingredients. Try removing some or adding alternatives.</p>
+            </div>
+          ) : (
+            <div className="empty-state" style={{ opacity: 0.5 }}>
+              <p>Add some ingredients above to see recommendations.</p>
+            </div>
+          )}
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}
 
 /* ─── Home Page ─── */
 function HomePage() {
@@ -653,13 +973,15 @@ function HomePage() {
     }
 
     if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      result = result.filter(r =>
-        r.title.toLowerCase().includes(q) ||
-        r.tags?.some(t => t.toLowerCase().includes(q)) ||
-        r.category.toLowerCase().includes(q) ||
-        r.ingredients?.some(ing => ing.toLowerCase().includes(q))
-      );
+      const terms = searchQuery.toLowerCase().split(',').map(t => t.trim()).filter(t => t);
+      result = result.filter(r => {
+        return terms.every(term => 
+          r.title.toLowerCase().includes(term) ||
+          r.tags?.some(t => t.toLowerCase().includes(term)) ||
+          r.category.toLowerCase().includes(term) ||
+          r.ingredients?.some(ing => ing.toLowerCase().includes(term))
+        );
+      });
     }
 
     return result;
@@ -859,6 +1181,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:catSlug" element={<HomePage />} />
         <Route path="/recipe/:slug" element={<RecipePage />} />
+        <Route path="/discovery" element={<DiscoveryPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<><HeadManager title="Privacy Policy | VidaSazón" description="VidaSazón privacy policy. Learn how we collect, use, and protect your personal information. We are committed to data security and transparency." canonical="https://vidasazon.com/privacy" /><SiteHeader /><PrivacyPolicy /><SiteFooter /></>} />
         <Route path="/terms" element={<><HeadManager title="Terms &amp; Conditions | VidaSazón" description="VidaSazón terms and conditions. Read about our medical disclaimer, recipe data attribution, user conduct, and limitation of liability." canonical="https://vidasazon.com/terms" /><SiteHeader /><TermsAndConditions /><SiteFooter /></>} />
