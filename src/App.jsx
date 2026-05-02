@@ -5,6 +5,7 @@ import ingredientsData from './data/ingredients.json';
 import './App.css';
 import { PrivacyPolicy, TermsAndConditions, AboutPage } from './LegalPages.jsx';
 import ContactPage from './ContactPage.jsx';
+import DiabeticGuide from './DiabeticGuide.jsx';
 
 const ITEMS_PER_PAGE = 12;
 const RecipesContext = createContext(null);
@@ -647,17 +648,36 @@ function RecipeCard({ recipe }) {
 }
 
 /* ─── Shared Header ─── */
-function SiteHeader() {
+export function SiteHeader() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
   return (
     <header>
       <div className="container header-inner">
         <Link to="/" className="logo">Vida<span>Sazón</span></Link>
-        <nav>
+        
+        <button 
+          className={`menu-toggle ${isMenuOpen ? 'active' : ''}`} 
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-label="Toggle Navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav className={isMenuOpen ? 'nav-mobile-open' : ''}>
           <ul className="nav-links label-upper">
             <li><Link to="/">Recipes</Link></li>
             <li><Link to="/discovery" style={{ color: 'var(--spice)', fontWeight: 'bold' }}>Chef Discovery</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/about">Our Mission</Link></li>
+            <li><Link to="/diabetic-food-guide">Food Guide</Link></li>
+            <li><Link to="/contact">Contact Support</Link></li>
           </ul>
         </nav>
       </div>
@@ -666,7 +686,7 @@ function SiteHeader() {
 }
 
 /* ─── Shared Footer ─── */
-function SiteFooter() {
+export function SiteFooter() {
   return (
     <footer>
       <div className="container footer-grid">
@@ -1186,6 +1206,7 @@ function App() {
         <Route path="/privacy" element={<><HeadManager title="Privacy Policy | VidaSazón" description="VidaSazón privacy policy. Learn how we collect, use, and protect your personal information. We are committed to data security and transparency." canonical="https://vidasazon.com/privacy" /><SiteHeader /><PrivacyPolicy /><SiteFooter /></>} />
         <Route path="/terms" element={<><HeadManager title="Terms &amp; Conditions | VidaSazón" description="VidaSazón terms and conditions. Read about our medical disclaimer, recipe data attribution, user conduct, and limitation of liability." canonical="https://vidasazon.com/terms" /><SiteHeader /><TermsAndConditions /><SiteFooter /></>} />
         <Route path="/about" element={<><HeadManager title="About VidaSazón | Academic Recipe Platform" description="Learn about VidaSazón's 718 dietitian-approved diabetic-friendly recipes sourced from Durban University of Technology. Meet our team and mission." canonical="https://vidasazon.com/about" /><SiteHeader /><AboutPage /><SiteFooter /></>} />
+        <Route path="/diabetic-food-guide" element={<><HeadManager title="Diabetic Food Guide | Nutrition Tips &amp; Recipes | VidaSazón" description="Comprehensive guide for diabetic-friendly eating. Learn about low GI foods, fiber-rich diets, and healthy meal planning for type 2 diabetes." canonical="https://vidasazon.com/diabetic-food-guide" /><DiabeticGuide /></>} />
       </Routes>
     </RecipesContext.Provider>
   );
