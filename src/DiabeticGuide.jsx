@@ -188,7 +188,12 @@ export default function DiabeticGuide() {
               <p style={{ marginBottom: '2rem', opacity: 0.8, lineHeight: 1.6 }}>
                 Liquid nutrition for insulin resistance. High-fiber legumes and mineral-rich broths provide comfort without the carbohydrate load of traditional stews.
               </p>
-              <Link to="/category/soups-stews" className="cta-button" style={{ width: '100%', justifyContent: 'center' }}>The Soup Library</Link>
+              <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
+                <Link to="/category/soups-stews" className="cta-button" style={{ width: '100%', justifyContent: 'center' }}>The Soup Library</Link>
+                <Link to="/diabetic-soup-guide" style={{ fontSize: '0.9rem', color: 'var(--spice)', fontWeight: 'bold', textAlign: 'center' }}>
+                  Read: Ultimate Soup Guide →
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div variants={reveal} className="hub-card-modern">
@@ -208,7 +213,12 @@ export default function DiabeticGuide() {
               <p style={{ marginBottom: '2rem', opacity: 0.8, lineHeight: 1.6 }}>
                 Engineering the plate. Swapping starchy grains for roasted brassicas and complex pulses to balance your macronutrient profile at every meal.
               </p>
-              <Link to="/category/sides" className="cta-button" style={{ width: '100%', justifyContent: 'center' }}>The Side Archive</Link>
+              <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
+                <Link to="/category/sides" className="cta-button" style={{ width: '100%', justifyContent: 'center' }}>The Side Archive</Link>
+                <Link to="/recipe/spiced-cauliflower-rice-pie" style={{ fontSize: '0.9rem', color: 'var(--spice)', fontWeight: 'bold', textAlign: 'center' }}>
+                  Try: Spiced Cauliflower Rice Pie →
+                </Link>
+              </div>
             </motion.div>
           </div>
         </section>

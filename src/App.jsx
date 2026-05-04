@@ -6,6 +6,7 @@ import './App.css';
 import { PrivacyPolicy, TermsAndConditions, AboutPage } from './LegalPages.jsx';
 import ContactPage from './ContactPage.jsx';
 import DiabeticGuide from './DiabeticGuide.jsx';
+import SoupGuide from './SoupGuide.jsx';
 
 const ITEMS_PER_PAGE = 12;
 const RecipesContext = createContext(null);
@@ -85,6 +86,37 @@ const CATEGORY_ICONS = {
   'Sides': '🫘',
   'Snacks & Breads': '🍞',
   'Sauces & Dressings': '🫙'
+};
+
+const CATEGORY_METADATA = {
+  'All': {
+    title: 'VidaSazón | 700+ Healthy Diabetic-Friendly Recipes',
+    description: 'Discover 718 nutritionist-approved recipes designed for people with type 2 diabetes. Flavor without compromise, featuring low GI and fiber-rich meals.'
+  },
+  'Soups & Stews': {
+    title: '20+ Healthy Diabetic Soup Recipes | Low-Carb & Nutritious | VidaSazón',
+    description: 'Discover our curated collection of delicious, low-glycemic index soups and stews designed for diabetes management. Easy to cook and full of flavor.'
+  },
+  'Sides': {
+    title: 'Diabetic Side Dish Recipes | Healthy & Low GI Sides | VidaSazón',
+    description: 'Complete your meals with our healthy, nutritionist-approved diabetic side dishes. From roasted vegetables to low-carb grains.'
+  },
+  'Salads': {
+    title: 'Fresh Diabetic Salad Recipes | Low-Carb & Nutritious | VidaSazón',
+    description: 'Nutritious and refreshing diabetic-friendly salads. Featuring fiber-rich ingredients and healthy dressings for stable blood sugar.'
+  },
+  'Main Dishes': {
+    title: 'Diabetic Main Dish Recipes | Balanced & Healthy Meals | VidaSazón',
+    description: 'Flavorful and balanced main courses for diabetic management. Lean proteins and complex carbs for stable energy levels.'
+  },
+  'Desserts': {
+    title: 'Diabetic-Friendly Desserts | Sugar-Free & Low GI Sweets | VidaSazón',
+    description: 'Enjoy sweetness without the spike. Our diabetic-friendly desserts use natural sweeteners and fiber-rich ingredients.'
+  },
+  'Beverages': {
+    title: 'Diabetic-Friendly Drink Recipes | Refreshing & Low Sugar | VidaSazón',
+    description: 'Stay hydrated with our diabetic-friendly beverage collection. Healthy smoothies, teas, and infused waters without added sugars.'
+  }
 };
 
 const reveal = {
@@ -1022,8 +1054,8 @@ function HomePage() {
   return (
     <div className="App">
       <HeadManager 
-        title={activeCategory === 'All' ? 'VidaSazón | Healthy Diabetic-Friendly Recipes' : `Easy Diabetic ${activeCategory} Recipes | VidaSazón`}
-        description={activeCategory === 'All' ? 'Discover 718 nutritionist-approved recipes designed for people with type 2 diabetes. Flavor without compromise.' : `Explore our delicious, nutritionist-approved diabetic-friendly ${activeCategory.toLowerCase()} recipes. Fast, easy, and healthy.`}
+        title={CATEGORY_METADATA[activeCategory]?.title || `Easy Diabetic ${activeCategory} Recipes | VidaSazón`}
+        description={CATEGORY_METADATA[activeCategory]?.description || `Explore our delicious, nutritionist-approved diabetic-friendly ${activeCategory.toLowerCase()} recipes. Fast, easy, and healthy.`}
         canonical={activeCategory === 'All' ? 'https://vidasazon.com/' : `https://vidasazon.com/category/${slugify(activeCategory)}`}
       />
       <CollectionSchema recipes={filteredRecipes} />
@@ -1207,6 +1239,7 @@ function App() {
         <Route path="/terms" element={<><HeadManager title="Terms &amp; Conditions | VidaSazón" description="VidaSazón terms and conditions. Read about our medical disclaimer, recipe data attribution, user conduct, and limitation of liability." canonical="https://vidasazon.com/terms" /><SiteHeader /><TermsAndConditions /><SiteFooter /></>} />
         <Route path="/about" element={<><HeadManager title="About VidaSazón | Academic Recipe Platform" description="Learn about VidaSazón's 718 dietitian-approved diabetic-friendly recipes sourced from Durban University of Technology. Meet our team and mission." canonical="https://vidasazon.com/about" /><SiteHeader /><AboutPage /><SiteFooter /></>} />
         <Route path="/diabetic-food-guide" element={<><HeadManager title="Diabetic Food Guide | Nutrition Tips &amp; Recipes | VidaSazón" description="Comprehensive guide for diabetic-friendly eating. Learn about low GI foods, fiber-rich diets, and healthy meal planning for type 2 diabetes." canonical="https://vidasazon.com/diabetic-food-guide" /><DiabeticGuide /></>} />
+        <Route path="/diabetic-soup-guide" element={<><HeadManager title="Healthy Diabetic Soup Guide | Low-Carb Soup Tips | VidaSazón" description="The ultimate guide to diabetic-friendly soups. Learn why soups are great for blood sugar and how to choose the best recipes for type 2 diabetes." canonical="https://vidasazon.com/diabetic-soup-guide" /><SoupGuide /></>} />
       </Routes>
     </RecipesContext.Provider>
   );
