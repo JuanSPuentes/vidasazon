@@ -46,7 +46,8 @@ const staticRoutes = [
     { loc: `${DOMAIN}/about`, changefreq: 'monthly', priority: '0.7' },
     { loc: `${DOMAIN}/contact`, changefreq: 'monthly', priority: '0.6' },
     { loc: `${DOMAIN}/privacy`, changefreq: 'yearly', priority: '0.3' },
-    { loc: `${DOMAIN}/terms`, changefreq: 'yearly', priority: '0.3' }
+    { loc: `${DOMAIN}/terms`, changefreq: 'yearly', priority: '0.3' },
+    { loc: `${DOMAIN}/blog`, changefreq: 'daily', priority: '0.8' }
 ];
 
 for (const route of staticRoutes) {
@@ -96,6 +97,25 @@ try {
     console.log(`✅ Loaded ${recipes.length} recipes for sitemap generation.`);
 } catch(e) {
     console.error('❌ Error reading data_recipes.json:', e);
+}
+
+// 4. Blog Routes with SEO indexing
+try {
+    const rawBlogData = fs.readFileSync(path.join(__dirname, 'src', 'data_blog.json'), 'utf8');
+    const blogs = JSON.parse(rawBlogData);
+
+    for (const blog of blogs) {
+        xml += `  <url>\n`;
+        xml += `    <loc>${DOMAIN}/blog/${blog.slug}</loc>\n`;
+        xml += `    <lastmod>${currentDate}</lastmod>\n`;
+        xml += `    <changefreq>weekly</changefreq>\n`;
+        xml += `    <priority>0.7</priority>\n`;
+        xml += `  </url>\n`;
+    }
+    
+    console.log(`✅ Loaded ${blogs.length} blog articles for sitemap generation.`);
+} catch(e) {
+    console.error('❌ Error reading data_blog.json:', e);
 }
 
 xml += `</urlset>`;

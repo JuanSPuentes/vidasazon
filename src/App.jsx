@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect, lazy, Suspense, createContext, useContext
 import { Routes, Route, useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import ingredientsData from './data/ingredients.json';
+import blogData from './data_blog.json';
 import './App.css';
 import { PrivacyPolicy, TermsAndConditions, AboutPage } from './LegalPages.jsx';
 import ContactPage from './ContactPage.jsx';
@@ -1198,6 +1199,200 @@ function HomePage() {
   );
 }
 
+/* ─── Blog Pages ─── */
+function BlogIndex() {
+  // Separate the first post as "Featured" and the rest as regular items
+  const featuredPost = blogData[0];
+  const remainingPosts = blogData.slice(1);
+
+  return (
+    <div className="App">
+      <HeadManager 
+        title="VidaSazón Nutrition Blog | Diabetic-Friendly Articles"
+        description="Read our latest articles on managing type 2 diabetes through nutrition, healthy eating tips, and dietary guides."
+        canonical="https://vidasazon.com/blog"
+      />
+      <SiteHeader />
+      
+      <main className="container" style={{ padding: '6rem 0' }}>
+        <section className="discovery-hero" style={{ textAlign: 'center', marginBottom: '5rem' }}>
+          <span className="label-upper section-label" style={{ paddingLeft: '0', display: 'inline-block' }}>Apothecary & Wellness</span>
+          <h1 style={{ fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', margin: '1rem 0' }}>Nutrition <span>Blog</span></h1>
+          <p className="hero-subtitle" style={{ margin: '0 auto', maxWidth: '600px' }}>
+            Culinary guides, dietary insights, and wholesome wellness tips for type 2 diabetes management and healthy living.
+          </p>
+        </section>
+
+        {/* Featured Post */}
+        {featuredPost && (
+          <section className="blog-featured-section">
+            <span className="label-upper" style={{ display: 'block', marginBottom: '1.5rem', opacity: 0.8 }}>Featured Insight</span>
+            <Link to={`/blog/${featuredPost.slug}`} className="blog-featured-card">
+              <div className="blog-featured-img-wrapper">
+                {/* Vintage botanical abstract illustration */}
+              </div>
+              <div className="blog-featured-body">
+                <div className="blog-meta-row">
+                  <span className="blog-meta-date">{featuredPost.date || 'Article'}</span>
+                  <span className="blog-meta-author">{featuredPost.author || 'VidaSazón Team'}</span>
+                </div>
+                <h2 className="blog-card-title" style={{ fontSize: '2.2rem', marginBottom: '1.5rem' }}>
+                  {featuredPost.title}
+                </h2>
+                <p className="blog-card-excerpt" style={{ fontSize: '1.05rem', marginBottom: '2.5rem' }}>
+                  {featuredPost.excerpt}
+                </p>
+                <div className="blog-card-btn">
+                  Read Full Article <span>&#8594;</span>
+                </div>
+              </div>
+            </Link>
+          </section>
+        )}
+        
+        {/* Regular Posts Grid */}
+        <div>
+          {blogData.length > 0 ? (
+            <>
+              {remainingPosts.length > 0 && (
+                <span className="label-upper" style={{ display: 'block', marginBottom: '2rem', opacity: 0.8 }}>Latest Publications</span>
+              )}
+              <div className="blog-grid-modern">
+                {remainingPosts.map(post => (
+                  <Link to={`/blog/${post.slug}`} key={post.slug} className="blog-post-card">
+                    <div className="blog-card-img-holder"></div>
+                    <div className="blog-card-content">
+                      <div className="blog-meta-row">
+                        <span className="blog-meta-date">{post.date || 'Article'}</span>
+                        <span className="blog-meta-author">{post.author || 'VidaSazón Team'}</span>
+                      </div>
+                      <h3 className="blog-card-title">{post.title}</h3>
+                      <p className="blog-card-excerpt">{post.excerpt}</p>
+                      <div className="blog-card-btn" style={{ marginTop: 'auto' }}>
+                        Read Article <span>&#8594;</span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </>
+          ) : (
+            <div className="empty-state">No articles published yet. Check back soon!</div>
+          )}
+        </div>
+      </main>
+      
+      <SiteFooter />
+    </div>
+  );
+}
+
+function ArticlePage() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const article = blogData.find(b => b.slug === slug);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Scroll Progress Tracker
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        setScrollProgress((window.pageYOffset / totalScroll) * 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
+  if (!article) {
+    return (
+      <div className="App">
+        <SiteHeader />
+        <main className="container">
+          <div className="empty-state" style={{ paddingTop: '6rem' }}>
+            <p>Article not found.</p>
+            <button onClick={() => navigate('/blog')}>Back to Blog</button>
+          </div>
+        </main>
+        <SiteFooter />
+      </div>
+    );
+  }
+
+  const baseUrl = window.location.origin;
+
+  return (
+    <div className="App">
+      <HeadManager
+        title={`${article.title} | VidaSazón Blog`}
+        description={article.excerpt}
+        canonical={`${baseUrl}/blog/${article.slug}`}
+      />
+      
+      {/* Reading Progress Bar */}
+      <div className="reading-progress-bar" style={{ width: `${scrollProgress}%` }}></div>
+
+      <SiteHeader />
+
+      <main className="container" style={{ padding: '4rem 0 8rem' }}>
+        <nav className="breadcrumb" aria-label="Breadcrumb" style={{ marginBottom: '3rem' }}>
+          <Link to="/">Home</Link>
+          <span className="breadcrumb-sep">›</span>
+          <Link to="/blog">Blog</Link>
+          <span className="breadcrumb-sep">›</span>
+          <span className="breadcrumb-current">{article.title}</span>
+        </nav>
+
+        <article className="article-container-premium">
+          <header className="article-header">
+            <div className="article-meta-badge">
+              {article.date || 'Article'} • {article.author || 'VidaSazón Nutrition Team'}
+            </div>
+            <h1 style={{ fontSize: 'clamp(2rem, 5.5vw, 3.4rem)', lineHeight: '1.15', margin: '1rem 0' }}>
+              {article.title}
+            </h1>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', fontFamily: 'Playfair Display', fontStyle: 'italic', maxWidth: '640px', margin: '1.5rem auto 0', lineHeight: '1.5' }}>
+              {article.excerpt}
+            </p>
+          </header>
+
+          {/* Interactive drop cap paragraph */}
+          <div 
+            className="article-content-premium" 
+            dangerouslySetInnerHTML={{ __html: article.contentHtml }} 
+          />
+          
+          {article.tags && article.tags.length > 0 && (
+            <div className="modal-tags" style={{ marginTop: '4rem', padding: '2rem 0', borderTop: '1px solid rgba(26, 47, 35, 0.08)' }}>
+              <span className="label-upper" style={{ display: 'block', marginBottom: '1rem', opacity: 0.6 }}>Tags</span>
+              <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
+                {article.tags.map(tag => (
+                  <span key={tag} className="tag" style={{ background: 'var(--canvas-warm)', border: 'none', color: 'var(--sage)' }}>{tag}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+
+          
+          <div style={{ marginTop: '5rem', textAlign: 'center' }}>
+            <Link to="/blog" className="cta-button label-upper" style={{ borderRadius: '100px' }}>
+              &#8592; Back to Nutrition Blog
+            </Link>
+          </div>
+        </article>
+      </main>
+      
+      <SiteFooter />
+    </div>
+  );
+}
+
 /* ─── App with Routes ─── */
 function App() {
   const { recipes, loading, error } = useRecipesData();
@@ -1240,6 +1435,8 @@ function App() {
         <Route path="/about" element={<><HeadManager title="About VidaSazón | Academic Recipe Platform" description="Learn about VidaSazón's 718 dietitian-approved diabetic-friendly recipes sourced from Durban University of Technology. Meet our team and mission." canonical="https://vidasazon.com/about" /><SiteHeader /><AboutPage /><SiteFooter /></>} />
         <Route path="/diabetic-food-guide" element={<><HeadManager title="Diabetic Food Guide | Nutrition Tips &amp; Recipes | VidaSazón" description="Comprehensive guide for diabetic-friendly eating. Learn about low GI foods, fiber-rich diets, and healthy meal planning for type 2 diabetes." canonical="https://vidasazon.com/diabetic-food-guide" /><DiabeticGuide /></>} />
         <Route path="/diabetic-soup-guide" element={<><HeadManager title="Healthy Diabetic Soup Guide | Low-Carb Soup Tips | VidaSazón" description="The ultimate guide to diabetic-friendly soups. Learn why soups are great for blood sugar and how to choose the best recipes for type 2 diabetes." canonical="https://vidasazon.com/diabetic-soup-guide" /><SoupGuide /></>} />
+        <Route path="/blog" element={<BlogIndex />} />
+        <Route path="/blog/:slug" element={<ArticlePage />} />
       </Routes>
     </RecipesContext.Provider>
   );

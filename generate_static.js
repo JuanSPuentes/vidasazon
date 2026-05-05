@@ -29,6 +29,18 @@ try {
     process.exit(1);
 }
 
+// Load Blogs
+const blogsPath = path.join(__dirname, 'src', 'data_blog.json');
+let blogs = [];
+try {
+    if (fs.existsSync(blogsPath)) {
+        const rawData = fs.readFileSync(blogsPath, 'utf8');
+        blogs = JSON.parse(rawData);
+    }
+} catch (e) {
+    console.error('❌ Error reading data_blog.json:', e);
+}
+
 function slugify(text) {
     return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 }
@@ -93,11 +105,20 @@ const staticPages = [
     { path: 'about', title: 'About VidaSazón', desc: 'VidaSazón is a platform dedicated to preserving flavor for people managing type 2 diabetes.' },
     { path: 'contact', title: 'Contact Us | VidaSazón', desc: 'Get in touch with the VidaSazón team.' },
     { path: 'privacy', title: 'Privacy Policy | VidaSazón', desc: 'Privacy policy for VidaSazón.' },
-    { path: 'terms', title: 'Terms & Conditions | VidaSazón', desc: 'Terms and conditions for using VidaSazón.' }
+    { path: 'terms', title: 'Terms & Conditions | VidaSazón', desc: 'Terms and conditions for using VidaSazón.' },
+    { path: 'blog', title: 'VidaSazón Nutrition Blog | Diabetic-Friendly Articles', desc: 'Read our latest articles on managing type 2 diabetes through nutrition, healthy eating tips, and dietary guides.' }
 ];
 
 staticPages.forEach(p => {
     prerenderPage(p.path, p.title, p.desc, `${DOMAIN}/${p.path}`);
 });
 
-console.log(`✅ Pre-rendered ${recipes.length} recipes and ${CATEGORIES.length} categories.`);
+// 4. Prerender Blogs
+blogs.forEach(blog => {
+    const title = `${blog.title} | VidaSazón Blog`;
+    const description = blog.excerpt || `Read ${blog.title} on the VidaSazón nutrition blog.`;
+    const canonical = `${DOMAIN}/blog/${blog.slug}`;
+    prerenderPage(`blog/${blog.slug}`, title, description, canonical);
+});
+
+console.log(`✅ Pre-rendered ${recipes.length} recipes, ${CATEGORIES.length} categories, and ${blogs.length} blog articles.`);
