@@ -2416,4 +2416,90 @@ footer::before {
   margin: 0;
 }
 
+/* ═══════════════════════════════════════════
+   Reading Progress Bar & Recipe Accordions
+   ═══════════════════════════════════════════ */
+
+.reading-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--spice) 0%, var(--gold) 100%);
+  z-index: 1000;
+  transition: width 0.1s ease-out;
+  box-shadow: 0 1px 10px rgba(196, 83, 58, 0.4);
+}
+
+.accordion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(26, 47, 35, 0.06);
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+.accordion-header::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 2rem;
+  height: 2px;
+  background: var(--spice);
+  transition: width 0.3s ease;
+}
+
+.accordion-header:hover::after {
+  width: 4.5rem;
+}
+
+.accordion-header h2 {
+  font-size: 1.1rem;
+  margin: 0 !important;
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: 0 !important;
+}
+
+.accordion-header h2::after {
+  display: none !important; /* Hide the static underline */
+}
+
+.accordion-icon {
+  font-size: 1.2rem;
+  color: var(--spice);
+  font-weight: 400;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(196, 83, 58, 0.15);
+  background: rgba(196, 83, 58, 0.02);
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.accordion-header:hover .accordion-icon {
+  background: var(--spice);
+  color: white;
+  border-color: var(--spice);
+  transform: scale(1.05);
+}
+
+
 

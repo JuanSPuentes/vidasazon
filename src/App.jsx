@@ -468,6 +468,9 @@ function RecipePage() {
   const navigate = useNavigate();
   const recipe = useContext(RecipesContext)?.find(r => r.slug === slug);
 
+  const [isIngredientsOpen, setIsIngredientsOpen] = useState(true);
+  const [isDirectionsOpen, setIsDirectionsOpen] = useState(true);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [slug]);
@@ -585,21 +588,61 @@ function RecipePage() {
 
             <div className="recipe-detail-grid">
               <div className="modal-section">
-                <h2>Ingredients</h2>
-                <ul className="ingredient-list single-col">
-                  {recipe.ingredients?.map((ing, i) => (
-                    <li key={i}>{ing}</li>
-                  ))}
-                </ul>
+                <button
+                  type="button"
+                  className="accordion-header"
+                  onClick={() => setIsIngredientsOpen(!isIngredientsOpen)}
+                  aria-expanded={isIngredientsOpen}
+                >
+                  <h2>Ingredients</h2>
+                  <span className="accordion-icon">{isIngredientsOpen ? '−' : '+'}</span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isIngredientsOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <ul className="ingredient-list single-col">
+                        {recipe.ingredients?.map((ing, i) => (
+                          <li key={i}>{ing}</li>
+                        ))}
+                      </ul>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
 
               <div className="modal-section">
-                <h2>Directions</h2>
-                <ol className="steps-list">
-                  {recipe.steps?.map((step, i) => (
-                    <li key={i}>{step}</li>
-                  ))}
-                </ol>
+                <button
+                  type="button"
+                  className="accordion-header"
+                  onClick={() => setIsDirectionsOpen(!isDirectionsOpen)}
+                  aria-expanded={isDirectionsOpen}
+                >
+                  <h2>Directions</h2>
+                  <span className="accordion-icon">{isDirectionsOpen ? '−' : '+'}</span>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isDirectionsOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: [0.25, 1, 0.5, 1] }}
+                      style={{ overflow: 'hidden' }}
+                    >
+                      <ol className="steps-list">
+                        {recipe.steps?.map((step, i) => (
+                          <li key={i}>{step}</li>
+                        ))}
+                      </ol>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 
